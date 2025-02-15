@@ -13,7 +13,7 @@ export default function Map() {
     const [stops, setStops] = useState<Stop[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/stops')
+        fetch('http://localhost:5002/api/stops')
             .then(res => res.json())
             .then((data: Stop[]) => setStops(data));
     }, []);

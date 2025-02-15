@@ -22,4 +22,4 @@ app.post('/api/stops/:id/adopt', async (req, res) => {
     res.json({ message: "Stop adopted" });
 });
 
-app.listen(5001, () => console.log("Server running on port 5000"));
+app.listen(5002, () => console.log("Server running on port 5000"));
