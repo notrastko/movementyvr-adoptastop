@@ -5,6 +5,13 @@ import 'leaflet.markercluster/dist/leaflet.markercluster.js';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
+const busStopIcon = new L.Icon({
+    iconUrl: 'bus-stop-icon.png',
+    iconSize: [30, 30], 
+    iconAnchor: [15, 30], 
+    popupAnchor: [0, -30] 
+});
+
 interface Stop {
     stopNumber: string;
     name: string;
@@ -30,7 +37,7 @@ function ClusterMarkers({ stops }: { stops: Stop[] }) {
         const markers = L.markerClusterGroup();
 
         stops.forEach(stop => {
-            const marker = L.marker([stop.latitude, stop.longitude])
+            const marker = L.marker([stop.latitude, stop.longitude], { icon: busStopIcon })
                 .bindPopup(`<h3>${stop.name}</h3><p>${stop.adopted ? "Adopted!" : "Available for adoption"}</p>`);
             markers.addLayer(marker);
         });
@@ -45,7 +52,7 @@ export default function Map() {
     const [stops, setStops] = useState<Stop[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/stops')
+        fetch('http://localhost:5002/api/stops')
             .then(res => res.json())
             .then((data: Stop[]) => setStops(data));
     }, []);
